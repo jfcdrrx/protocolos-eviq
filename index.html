@@ -228,14 +228,14 @@ const ALIAS={"estereotactica":"stereotactic sbrt sabr srs","radiocirugia":"stere
 const DATA=P.map(([id,k,t,off])=>{const c=CATS.find(c=>c.k===k);return{id,k,t,off:!!off,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw)};});
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem("eviqFav")||"[]"))}catch(e){}
 const saveFav=()=>{try{localStorage.setItem("eviqFav",JSON.stringify([...favs]))}catch(e){}};
-let cat="all";try{cat=localStorage.getItem("eviqCat")||"all"}catch(e){}
+let cat="all";
 const $=s=>document.querySelector(s);
 function expand(q){let e=q;for(const[a,b]of Object.entries(ALIAS)){if(q.includes(a))e+=" "+b}return e}
 function match(d,q){if(!q)return true;const words=norm(q).split(/\s+/).filter(Boolean);
  return words.every(w=>{const alt=norm(expand(w)).split(/\s+/);return alt.some(a=>d.hay.includes(a))||(w==="sbrt"&&d.tags.some(t=>t[0]==="sbrt"))});}
 function chips(){const el=$("#chips");el.innerHTML="";
  const visible=DATA.filter(d=>$("#showOff").checked||!d.off);
- const mk=(k,label,n)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.setAttribute("aria-pressed",cat===k);b.innerHTML=label+'<span class="n">'+n+"</span>";b.onclick=()=>{cat=k;try{localStorage.setItem("eviqCat",k)}catch(e){};render()};el.appendChild(b)};
+ const mk=(k,label,n)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.setAttribute("aria-pressed",cat===k);b.innerHTML=label+'<span class="n">'+n+"</span>";b.onclick=()=>{cat=k;render()};el.appendChild(b)};
  mk("all","Todos",visible.length);
  mk("sbrt","SBRT",visible.filter(d=>d.tags.some(t=>t[0]==="sbrt")).length);
  CATS.forEach(c=>mk(c.k,c.es,visible.filter(d=>d.k===c.k).length));}
@@ -253,7 +253,7 @@ function render(){chips();const q=$("#q").value.trim(),fo=$("#favOnly").checked,
    li.querySelector(".fav").onclick=e=>{favs.has(d.id)?favs.delete(d.id):favs.add(d.id);saveFav();e.currentTarget.setAttribute("aria-pressed",favs.has(d.id));if(fo)render()};
    ul.appendChild(li)});
   s.appendChild(ul);main.appendChild(s)});}
-$("#q").addEventListener("input",render);$("#favOnly").addEventListener("change",render);$("#showOff").addEventListener("change",render);
+$("#q").addEventListener("input",()=>{if($("#q").value.trim())cat="all";render()});$("#favOnly").addEventListener("change",render);$("#showOff").addEventListener("change",render);
 render();
 </script>
 </body>
