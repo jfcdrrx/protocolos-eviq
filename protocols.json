@@ -1,0 +1,750 @@
+{
+ "checked": "2026-10-23",
+ "source": "inicial",
+ "protocols": [
+  {
+   "id": "3650",
+   "cat": "breast",
+   "title": "Breast invasive cancer adjuvant whole breast EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3650",
+   "lastmod": ""
+  },
+  {
+   "id": "3658",
+   "cat": "breast",
+   "title": "Breast invasive cancer/ductal carcinoma in situ adjuvant partial breast EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3658",
+   "lastmod": ""
+  },
+  {
+   "id": "1921",
+   "cat": "breast",
+   "title": "Breast ductal carcinoma in situ adjuvant EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1921",
+   "lastmod": ""
+  },
+  {
+   "id": "1924",
+   "cat": "breast",
+   "title": "Breast invasive cancer adjuvant nodal irradiation EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1924",
+   "lastmod": ""
+  },
+  {
+   "id": "1925",
+   "cat": "breast",
+   "title": "Breast invasive cancer adjuvant EBRT post-mastectomy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1925",
+   "lastmod": ""
+  },
+  {
+   "id": "1926",
+   "cat": "breast",
+   "title": "Breast inflammatory cancer adjuvant/neoadjuvant EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1926",
+   "lastmod": ""
+  },
+  {
+   "id": "1923",
+   "cat": "breast",
+   "title": "Breast invasive cancer adjuvant EBRT hypofractionation whole breast",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/1923",
+   "lastmod": ""
+  },
+  {
+   "id": "584",
+   "cat": "hn",
+   "title": "Head and neck glottic larynx squamous cell carcinoma definitive EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/584",
+   "lastmod": ""
+  },
+  {
+   "id": "4356",
+   "cat": "hn",
+   "title": "Head and neck larynx/hypopharynx SCC definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4356",
+   "lastmod": ""
+  },
+  {
+   "id": "5049",
+   "cat": "hn",
+   "title": "Head and neck oropharynx squamous cell carcinoma definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/5049",
+   "lastmod": ""
+  },
+  {
+   "id": "3468",
+   "cat": "hn",
+   "title": "Head and neck oral cavity squamous cell carcinoma definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3468",
+   "lastmod": ""
+  },
+  {
+   "id": "3390",
+   "cat": "hn",
+   "title": "Head and neck SCC hypopharynx, larynx, oropharynx, oral cavity adjuvant EBRT post-operative with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3390",
+   "lastmod": ""
+  },
+  {
+   "id": "621",
+   "cat": "hn",
+   "title": "Head and neck nasopharynx definitive EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/621",
+   "lastmod": ""
+  },
+  {
+   "id": "635",
+   "cat": "hn",
+   "title": "Head and neck nasopharynx definitive EBRT early-stage",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/635",
+   "lastmod": ""
+  },
+  {
+   "id": "3888",
+   "cat": "hn",
+   "title": "Head and neck nasopharynx adjuvant EBRT chemoradiation post-induction",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3888",
+   "lastmod": ""
+  },
+  {
+   "id": "756",
+   "cat": "hn",
+   "title": "Head and neck major salivary gland (primary) adjuvant EBRT post-operative high risk",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/756",
+   "lastmod": ""
+  },
+  {
+   "id": "1527",
+   "cat": "hn",
+   "title": "Head and neck paranasal sinus and nasal cavity adjuvant EBRT post-operative with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1527",
+   "lastmod": ""
+  },
+  {
+   "id": "4399",
+   "cat": "hn",
+   "title": "Head and neck palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4399",
+   "lastmod": ""
+  },
+  {
+   "id": "740",
+   "cat": "hn",
+   "title": "Head and neck oropharynx squamous cell carcinoma definitive EBRT",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/740",
+   "lastmod": ""
+  },
+  {
+   "id": "3362",
+   "cat": "hn",
+   "title": "Head and neck oropharynx squamous cell carcinoma definitive EBRT chemoradiation",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/3362",
+   "lastmod": ""
+  },
+  {
+   "id": "409",
+   "cat": "neuro",
+   "title": "Brain adult glioma CNS WHO grade 4 glioblastoma (IDH-wildtype) EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/409",
+   "lastmod": ""
+  },
+  {
+   "id": "410",
+   "cat": "neuro",
+   "title": "Brain adult glioma CNS WHO grade 3-4 astrocytoma or grade 4 glioblastoma EBRT short-course",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/410",
+   "lastmod": ""
+  },
+  {
+   "id": "1621",
+   "cat": "neuro",
+   "title": "Brain adult glioma CNS WHO grade 3-4 astrocytoma or grade 3 oligodendroglioma (IDH-mutant) EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1621",
+   "lastmod": ""
+  },
+  {
+   "id": "408",
+   "cat": "neuro",
+   "title": "Brain adult glioma CNS WHO grade 2 astrocytoma or oligodendroglioma (IDH-mutant) EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/408",
+   "lastmod": ""
+  },
+  {
+   "id": "1871",
+   "cat": "resp",
+   "title": "Respiratory non-small cell lung cancer definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1871",
+   "lastmod": ""
+  },
+  {
+   "id": "3697",
+   "cat": "resp",
+   "title": "Respiratory non-small cell lung cancer definitive EBRT hypofractionation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3697",
+   "lastmod": ""
+  },
+  {
+   "id": "3389",
+   "cat": "resp",
+   "title": "Respiratory non-small cell lung cancer definitive stereotactic EBRT peripheral tumours",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3389",
+   "lastmod": ""
+  },
+  {
+   "id": "4018",
+   "cat": "resp",
+   "title": "Respiratory non-small cell lung cancer definitive stereotactic EBRT central tumours",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4018",
+   "lastmod": ""
+  },
+  {
+   "id": "4023",
+   "cat": "resp",
+   "title": "Respiratory lung oligometastases definitive stereotactic EBRT peripheral tumours",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4023",
+   "lastmod": ""
+  },
+  {
+   "id": "1873",
+   "cat": "resp",
+   "title": "Respiratory non-small cell lung cancer adjuvant EBRT post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1873",
+   "lastmod": ""
+  },
+  {
+   "id": "4292",
+   "cat": "resp",
+   "title": "Respiratory small cell lung cancer thoracic EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4292",
+   "lastmod": ""
+  },
+  {
+   "id": "1872",
+   "cat": "resp",
+   "title": "Respiratory lung primary palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1872",
+   "lastmod": ""
+  },
+  {
+   "id": "1886",
+   "cat": "resp",
+   "title": "Respiratory small cell lung cancer definitive EBRT",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/1886",
+   "lastmod": ""
+  },
+  {
+   "id": "1861",
+   "cat": "ugi",
+   "title": "Oesophageal neoadjuvant EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1861",
+   "lastmod": ""
+  },
+  {
+   "id": "1865",
+   "cat": "ugi",
+   "title": "Oesophageal definitive EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1865",
+   "lastmod": ""
+  },
+  {
+   "id": "3581",
+   "cat": "ugi",
+   "title": "Pancreas definitive/neoadjuvant EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3581",
+   "lastmod": ""
+  },
+  {
+   "id": "4024",
+   "cat": "ugi",
+   "title": "Hepatic primary stereotactic EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4024",
+   "lastmod": ""
+  },
+  {
+   "id": "4026",
+   "cat": "ugi",
+   "title": "Hepatic metastases stereotactic EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4026",
+   "lastmod": ""
+  },
+  {
+   "id": "1862",
+   "cat": "ugi",
+   "title": "Gastric and gastroesophageal adenocarcinoma adjuvant EBRT chemoradiation (superseded)",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/1862",
+   "lastmod": ""
+  },
+  {
+   "id": "1863",
+   "cat": "cr",
+   "title": "Rectal neoadjuvant EBRT chemoradiation pre-operative long-course",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1863",
+   "lastmod": ""
+  },
+  {
+   "id": "1874",
+   "cat": "cr",
+   "title": "Rectal neoadjuvant EBRT pre-operative short-course",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1874",
+   "lastmod": ""
+  },
+  {
+   "id": "1868",
+   "cat": "cr",
+   "title": "Rectal adjuvant EBRT chemoradiation post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1868",
+   "lastmod": ""
+  },
+  {
+   "id": "1860",
+   "cat": "cr",
+   "title": "Anal definitive EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1860",
+   "lastmod": ""
+  },
+  {
+   "id": "105",
+   "cat": "gyn",
+   "title": "Gynaecological cervix definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/105",
+   "lastmod": ""
+  },
+  {
+   "id": "1319",
+   "cat": "gyn",
+   "title": "Gynaecological cervix definitive brachytherapy boost",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1319",
+   "lastmod": ""
+  },
+  {
+   "id": "3026",
+   "cat": "gyn",
+   "title": "Gynaecological cervix adjuvant EBRT chemoradiation",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3026",
+   "lastmod": ""
+  },
+  {
+   "id": "1471",
+   "cat": "gyn",
+   "title": "Gynaecological cervix adjuvant EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1471",
+   "lastmod": ""
+  },
+  {
+   "id": "233",
+   "cat": "gyn",
+   "title": "Gynaecological endometrium adjuvant EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/233",
+   "lastmod": ""
+  },
+  {
+   "id": "3660",
+   "cat": "gyn",
+   "title": "Gynaecological endometrium adjuvant vaginal brachytherapy alone or boost",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3660",
+   "lastmod": ""
+  },
+  {
+   "id": "3746",
+   "cat": "gyn",
+   "title": "Gynaecological endometrium definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3746",
+   "lastmod": ""
+  },
+  {
+   "id": "3747",
+   "cat": "gyn",
+   "title": "Gynaecological endometrium definitive HDR brachytherapy alone or boost",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3747",
+   "lastmod": ""
+  },
+  {
+   "id": "3749",
+   "cat": "gyn",
+   "title": "Gynaecological vulval definitive or neoadjuvant EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3749",
+   "lastmod": ""
+  },
+  {
+   "id": "3748",
+   "cat": "gyn",
+   "title": "Gynaecological vulval adjuvant EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3748",
+   "lastmod": ""
+  },
+  {
+   "id": "234",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive EBRT intermediate-risk",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/234",
+   "lastmod": ""
+  },
+  {
+   "id": "235",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive EBRT high-risk",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/235",
+   "lastmod": ""
+  },
+  {
+   "id": "3657",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive EBRT prostate and pelvic lymph nodes",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3657",
+   "lastmod": ""
+  },
+  {
+   "id": "4140",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive ultra-hypofractionated stereotactic EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4140",
+   "lastmod": ""
+  },
+  {
+   "id": "415",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive HDR brachytherapy boost",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/415",
+   "lastmod": ""
+  },
+  {
+   "id": "416",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive LDR brachytherapy permanent seeds",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/416",
+   "lastmod": ""
+  },
+  {
+   "id": "4487",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma prostate bed salvage or adjuvant EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4487",
+   "lastmod": ""
+  },
+  {
+   "id": "3659",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma palliative EBRT low volume metastatic disease",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3659",
+   "lastmod": ""
+  },
+  {
+   "id": "3370",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma definitive EBRT hypofractionation",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/3370",
+   "lastmod": ""
+  },
+  {
+   "id": "305",
+   "cat": "prost",
+   "title": "Prostate adenocarcinoma salvage EBRT post radical prostatectomy",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/305",
+   "lastmod": ""
+  },
+  {
+   "id": "1025",
+   "cat": "blad",
+   "title": "Bladder carcinoma definitive EBRT with or without chemotherapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1025",
+   "lastmod": ""
+  },
+  {
+   "id": "1026",
+   "cat": "blad",
+   "title": "Bladder carcinoma palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1026",
+   "lastmod": ""
+  },
+  {
+   "id": "4381",
+   "cat": "kid",
+   "title": "Renal cell carcinoma definitive stereotactic EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4381",
+   "lastmod": ""
+  },
+  {
+   "id": "4440",
+   "cat": "kid",
+   "title": "Adrenal metastases stereotactic EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4440",
+   "lastmod": ""
+  },
+  {
+   "id": "1804",
+   "cat": "haem",
+   "title": "Non-Hodgkin diffuse large B-cell lymphoma limited-stage EBRT to involved sites",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1804",
+   "lastmod": ""
+  },
+  {
+   "id": "1817",
+   "cat": "haem",
+   "title": "Non-Hodgkin diffuse large B-cell lymphoma advanced-stage EBRT to involved sites",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1817",
+   "lastmod": ""
+  },
+  {
+   "id": "3608",
+   "cat": "haem",
+   "title": "Non-Hodgkin follicular lymphoma definitive EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3608",
+   "lastmod": ""
+  },
+  {
+   "id": "4401",
+   "cat": "haem",
+   "title": "Non-Hodgkin primary cutaneous T-cell lymphoma definitive or palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4401",
+   "lastmod": ""
+  },
+  {
+   "id": "4617",
+   "cat": "haem",
+   "title": "Non-Hodgkin primary cutaneous T-cell lymphoma palliative total skin electron therapy",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4617",
+   "lastmod": ""
+  },
+  {
+   "id": "3619",
+   "cat": "haem",
+   "title": "Hodgkin lymphoma early-stage EBRT to involved sites",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3619",
+   "lastmod": ""
+  },
+  {
+   "id": "1849",
+   "cat": "haem",
+   "title": "Hodgkin lymphoma advanced-stage EBRT to involved sites",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1849",
+   "lastmod": ""
+  },
+  {
+   "id": "1245",
+   "cat": "haem",
+   "title": "Primary CNS lymphoma (PCNSL) whole brain consolidation EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1245",
+   "lastmod": ""
+  },
+  {
+   "id": "1768",
+   "cat": "haem",
+   "title": "Hodgkin lymphoma early stage favourable EBRT to involved sites",
+   "off": true,
+   "url": "https://www.eviq.org.au/p/1768",
+   "lastmod": ""
+  },
+  {
+   "id": "1032",
+   "cat": "skin",
+   "title": "Skin cancer basal cell carcinoma definitive EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1032",
+   "lastmod": ""
+  },
+  {
+   "id": "4541",
+   "cat": "skin",
+   "title": "Skin cancer basal cell carcinoma adjuvant EBRT post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4541",
+   "lastmod": ""
+  },
+  {
+   "id": "1036",
+   "cat": "skin",
+   "title": "Skin cancer squamous cell carcinoma definitive EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1036",
+   "lastmod": ""
+  },
+  {
+   "id": "1033",
+   "cat": "skin",
+   "title": "Skin cancer squamous cell carcinoma adjuvant EBRT post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1033",
+   "lastmod": ""
+  },
+  {
+   "id": "1142",
+   "cat": "skin",
+   "title": "Skin cancer Merkel cell carcinoma definitive EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1142",
+   "lastmod": ""
+  },
+  {
+   "id": "1023",
+   "cat": "skin",
+   "title": "Skin cancer Merkel cell carcinoma adjuvant EBRT post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1023",
+   "lastmod": ""
+  },
+  {
+   "id": "1170",
+   "cat": "skin",
+   "title": "Skin cancer melanoma adjuvant EBRT post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1170",
+   "lastmod": ""
+  },
+  {
+   "id": "268",
+   "cat": "pall",
+   "title": "Bone metastases palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/268",
+   "lastmod": ""
+  },
+  {
+   "id": "4098",
+   "cat": "pall",
+   "title": "Spinal bone metastases palliative EBRT stereotactic",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4098",
+   "lastmod": ""
+  },
+  {
+   "id": "4099",
+   "cat": "pall",
+   "title": "Non-spine bone metastases palliative EBRT stereotactic",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/4099",
+   "lastmod": ""
+  },
+  {
+   "id": "296",
+   "cat": "pall",
+   "title": "Spinal cord compression palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/296",
+   "lastmod": ""
+  },
+  {
+   "id": "1251",
+   "cat": "pall",
+   "title": "Brain metastases palliative EBRT whole brain",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/1251",
+   "lastmod": ""
+  },
+  {
+   "id": "3882",
+   "cat": "pall",
+   "title": "Brain metastases palliative EBRT hippocampal avoidance whole brain",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3882",
+   "lastmod": ""
+  },
+  {
+   "id": "3253",
+   "cat": "pall",
+   "title": "Brain metastases palliative EBRT stereotactic",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3253",
+   "lastmod": ""
+  },
+  {
+   "id": "3572",
+   "cat": "pall",
+   "title": "Brain metastases palliative EBRT stereotactic post-operative",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/3572",
+   "lastmod": ""
+  },
+  {
+   "id": "295",
+   "cat": "pall",
+   "title": "Superior vena cava obstruction palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/295",
+   "lastmod": ""
+  },
+  {
+   "id": "269",
+   "cat": "pall",
+   "title": "Hepatic metastases palliative EBRT",
+   "off": false,
+   "url": "https://www.eviq.org.au/p/269",
+   "lastmod": ""
+  }
+ ]
+}
