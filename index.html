@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14202b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="eviQ RT">
+<title>Protocolos RT eviQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column — sticky search + category chips, then a scannable list of protocol rows */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --fg:#14202b; --muted:#5b6a78; --line:#dde3e9;
+  --accent:#d2452c;        /* isodose red: the 100% line */
+  --accent-soft:#fbe7e2;
+  --chip:#e7ecf1; --chip-on:#14202b; --chip-on-fg:#ffffff;
+  --sbrt:#7a3fb0; --brachy:#0f7d6b; --pall:#a86512; --off:#8a96a3;
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#26323e;
+  --accent:#ff7a5c; --accent-soft:#3a201b; --chip:#1f2b37; --chip-on:#e6edf3; --chip-on-fg:#0f161d;
+  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#26323e;
+  --accent:#ff7a5c; --accent-soft:#3a201b; --chip:#1f2b37; --chip-on:#e6edf3; --chip-on-fg:#0f161d;
+  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+header h1{font-family:var(--f-display);font-weight:700;font-size:1.7rem;letter-spacing:-.01em;margin:0;text-wrap:balance;display:flex;align-items:center;gap:.5rem}
+.iso{width:26px;height:26px;flex:none}
+header p{margin:.35rem 0 0;color:var(--muted);font-size:.9rem;max-width:62ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 10px;margin-top:10px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.search{display:flex;gap:8px;align-items:center}
+#q{flex:1;min-width:0;font:inherit;font-size:1rem;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
+#q:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:inherit;font-size:.82rem;font-weight:500;border:0;border-radius:999px;padding:6px 11px;background:var(--chip);color:var(--fg);cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-fg)}
+.chip .n{font-family:var(--f-mono);font-size:.72rem;opacity:.65;margin-left:4px}
+.opts{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.84rem;color:var(--muted)}
+.opts label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.opts input{accent-color:var(--accent)}
+.count{margin-left:auto;font-family:var(--f-mono);font-size:.75rem}
+section{margin-top:22px}
+section h2{font-family:var(--f-display);font-weight:600;font-size:1.05rem;margin:0 0 8px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+section h2 a{font-family:var(--f-body);font-size:.78rem;font-weight:500;color:var(--accent);text-decoration:none}
+section h2 a:hover{text-decoration:underline}
+ul{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+li{display:flex;align-items:stretch;border-top:1px solid var(--line)}
+li:first-child{border-top:0}
+li a.p{flex:1;min-width:0;display:grid;grid-template-columns:3.6rem 1fr;gap:4px 10px;padding:11px 6px 11px 12px;color:inherit;text-decoration:none}
+li a.p:hover{background:var(--accent-soft)}
+.id{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
+.t{font-size:.93rem;font-weight:500;overflow-wrap:anywhere}
+.tags{grid-column:2;display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:4px;border:1px solid currentColor}
+.tag.sbrt{color:var(--sbrt)} .tag.brachy{color:var(--brachy)} .tag.pall{color:var(--pall)} .tag.crt{color:var(--muted)} .tag.off{color:var(--off)}
+li.off .t{color:var(--off);text-decoration:line-through;text-decoration-thickness:1px}
+.fav{flex:none;width:46px;border:0;background:none;color:var(--line);font-size:1.25rem;cursor:pointer}
+.fav[aria-pressed="true"]{color:var(--accent)}
+.empty{padding:28px 4px;color:var(--muted);text-align:center}
+footer{margin-top:30px;font-size:.78rem;color:var(--muted);display:grid;gap:6px;max-width:66ch}
+footer a{color:inherit}
+header p.byline{margin-top:.5rem;font-size:.82rem;font-weight:600;color:var(--accent)}
+.credit{font-size:.84rem;font-weight:600;color:var(--fg);padding-top:10px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){li a.p{transition:background .12s}}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1><svg class="iso" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="var(--line)" stroke-width="2"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="var(--muted)" stroke-width="2"/><circle cx="16" cy="16" r="5" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>Protocolos RT eviQ</h1>
+  <p>Índice de protocolos de oncología radioterápica de eviQ. Toca uno para abrirlo en la web oficial. ★ guarda favoritos en este dispositivo.</p>
+  <p class="byline">App diseñada por J.F. Calvo-Ortega · 23/10/2026</p>
+</header>
+
+<div class="bar">
+  <div class="search"><input id="q" type="search" placeholder="Buscar: próstata, SBRT, 4140, glioma…" autocomplete="off" aria-label="Buscar protocolo"></div>
+  <div class="chips" id="chips" role="toolbar" aria-label="Localización"></div>
+  <div class="opts">
+    <label><input type="checkbox" id="favOnly"> Solo favoritos</label>
+    <label><input type="checkbox" id="showOff"> Mostrar discontinuados</label>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main id="list"></main>
+
+<footer>
+  <div>Índice recopilado el 23 oct 2026. eviQ añade y retira protocolos con frecuencia: usa «Ver sección en eviQ» para la lista completa y actual de cada localización.</div>
+  <div>Contenido: <a href="https://www.eviq.org.au/" target="_blank" rel="noopener">eviQ Cancer Treatments Online</a>, Cancer Institute NSW, bajo licencia CC BY-NC 4.0. Esta app solo enlaza a eviQ; no aloja ni modifica su contenido y no está afiliada a eviQ. Guía clínica de referencia, no sustituye el juicio profesional.</div>
+</footer>
+</div>
+
+<script>
+const B="https://www.eviq.org.au";
+const CATS=[
+ {k:"breast",es:"Mama",path:"/Radiation-oncology/Breast",kw:"mama breast"},
+ {k:"hn",es:"Cabeza y cuello",path:"/Radiation-oncology/Head-and-neck",kw:"cabeza cuello orl head neck"},
+ {k:"neuro",es:"SNC",path:"/Radiation-oncology/Neurological",kw:"cerebro snc neurologico glioma brain"},
+ {k:"resp",es:"Pulmón",path:"/Radiation-oncology/Respiratory",kw:"pulmon torax lung respiratorio"},
+ {k:"ugi",es:"Digestivo alto",path:"/Radiation-oncology/Upper-gastrointestinal",kw:"esofago pancreas higado estomago digestivo"},
+ {k:"cr",es:"Recto y ano",path:"/Radiation-oncology/Colorectal",kw:"recto ano colorrectal"},
+ {k:"gyn",es:"Ginecológico",path:"/Radiation-oncology/Gynaecological",kw:"ginecologico cervix cuello utero endometrio vulva"},
+ {k:"prost",es:"Próstata",path:"/Radiation-oncology/Urogenital/Prostate",kw:"prostata urologico"},
+ {k:"blad",es:"Vejiga",path:"/Radiation-oncology/Urogenital/Bladder",kw:"vejiga urologico"},
+ {k:"kid",es:"Riñón y suprarrenal",path:"/Radiation-oncology/Urogenital/Kidney-and-adrenal",kw:"riñon rinon renal suprarrenal"},
+ {k:"haem",es:"Hematología",path:"/Radiation-oncology/Haematology",kw:"linfoma hematologia hodgkin"},
+ {k:"skin",es:"Piel",path:"/Radiation-oncology/Skin",kw:"piel cutaneo melanoma"},
+ {k:"pall",es:"Paliativo",path:"/Radiation-oncology/Palliative",kw:"paliativo metastasis"}
+];
+// [id, category, title, discontinued?]
+const P=[
+["3650","breast","Breast invasive cancer adjuvant whole breast EBRT"],
+["3658","breast","Breast invasive cancer/ductal carcinoma in situ adjuvant partial breast EBRT"],
+["1921","breast","Breast ductal carcinoma in situ adjuvant EBRT"],
+["1924","breast","Breast invasive cancer adjuvant nodal irradiation EBRT"],
+["1925","breast","Breast invasive cancer adjuvant EBRT post-mastectomy"],
+["1926","breast","Breast inflammatory cancer adjuvant/neoadjuvant EBRT"],
+["1923","breast","Breast invasive cancer adjuvant EBRT hypofractionation whole breast",1],
+["584","hn","Head and neck glottic larynx squamous cell carcinoma definitive EBRT"],
+["4356","hn","Head and neck larynx/hypopharynx SCC definitive EBRT with or without chemotherapy"],
+["5049","hn","Head and neck oropharynx squamous cell carcinoma definitive EBRT with or without chemotherapy"],
+["3468","hn","Head and neck oral cavity squamous cell carcinoma definitive EBRT with or without chemotherapy"],
+["3390","hn","Head and neck SCC hypopharynx, larynx, oropharynx, oral cavity adjuvant EBRT post-operative with or without chemotherapy"],
+["621","hn","Head and neck nasopharynx definitive EBRT chemoradiation"],
+["635","hn","Head and neck nasopharynx definitive EBRT early-stage"],
+["3888","hn","Head and neck nasopharynx adjuvant EBRT chemoradiation post-induction"],
+["756","hn","Head and neck major salivary gland (primary) adjuvant EBRT post-operative high risk"],
+["1527","hn","Head and neck paranasal sinus and nasal cavity adjuvant EBRT post-operative with or without chemotherapy"],
+["4399","hn","Head and neck palliative EBRT"],
+["740","hn","Head and neck oropharynx squamous cell carcinoma definitive EBRT",1],
+["3362","hn","Head and neck oropharynx squamous cell carcinoma definitive EBRT chemoradiation",1],
+["409","neuro","Brain adult glioma CNS WHO grade 4 glioblastoma (IDH-wildtype) EBRT chemoradiation"],
+["410","neuro","Brain adult glioma CNS WHO grade 3-4 astrocytoma or grade 4 glioblastoma EBRT short-course"],
+["1621","neuro","Brain adult glioma CNS WHO grade 3-4 astrocytoma or grade 3 oligodendroglioma (IDH-mutant) EBRT"],
+["408","neuro","Brain adult glioma CNS WHO grade 2 astrocytoma or oligodendroglioma (IDH-mutant) EBRT"],
+["1871","resp","Respiratory non-small cell lung cancer definitive EBRT with or without chemotherapy"],
+["3697","resp","Respiratory non-small cell lung cancer definitive EBRT hypofractionation"],
+["3389","resp","Respiratory non-small cell lung cancer definitive stereotactic EBRT peripheral tumours"],
+["4018","resp","Respiratory non-small cell lung cancer definitive stereotactic EBRT central tumours"],
+["4023","resp","Respiratory lung oligometastases definitive stereotactic EBRT peripheral tumours"],
+["1873","resp","Respiratory non-small cell lung cancer adjuvant EBRT post-operative"],
+["4292","resp","Respiratory small cell lung cancer thoracic EBRT with or without chemotherapy"],
+["1872","resp","Respiratory lung primary palliative EBRT"],
+["1886","resp","Respiratory small cell lung cancer definitive EBRT",1],
+["1861","ugi","Oesophageal neoadjuvant EBRT chemoradiation"],
+["1865","ugi","Oesophageal definitive EBRT chemoradiation"],
+["3581","ugi","Pancreas definitive/neoadjuvant EBRT chemoradiation"],
+["4024","ugi","Hepatic primary stereotactic EBRT"],
+["4026","ugi","Hepatic metastases stereotactic EBRT"],
+["1862","ugi","Gastric and gastroesophageal adenocarcinoma adjuvant EBRT chemoradiation (superseded)",1],
+["1863","cr","Rectal neoadjuvant EBRT chemoradiation pre-operative long-course"],
+["1874","cr","Rectal neoadjuvant EBRT pre-operative short-course"],
+["1868","cr","Rectal adjuvant EBRT chemoradiation post-operative"],
+["1860","cr","Anal definitive EBRT chemoradiation"],
+["105","gyn","Gynaecological cervix definitive EBRT with or without chemotherapy"],
+["1319","gyn","Gynaecological cervix definitive brachytherapy boost"],
+["3026","gyn","Gynaecological cervix adjuvant EBRT chemoradiation"],
+["1471","gyn","Gynaecological cervix adjuvant EBRT"],
+["233","gyn","Gynaecological endometrium adjuvant EBRT with or without chemotherapy"],
+["3660","gyn","Gynaecological endometrium adjuvant vaginal brachytherapy alone or boost"],
+["3746","gyn","Gynaecological endometrium definitive EBRT with or without chemotherapy"],
+["3747","gyn","Gynaecological endometrium definitive HDR brachytherapy alone or boost"],
+["3749","gyn","Gynaecological vulval definitive or neoadjuvant EBRT with or without chemotherapy"],
+["3748","gyn","Gynaecological vulval adjuvant EBRT"],
+["234","prost","Prostate adenocarcinoma definitive EBRT intermediate-risk"],
+["235","prost","Prostate adenocarcinoma definitive EBRT high-risk"],
+["3657","prost","Prostate adenocarcinoma definitive EBRT prostate and pelvic lymph nodes"],
+["4140","prost","Prostate adenocarcinoma definitive ultra-hypofractionated stereotactic EBRT"],
+["415","prost","Prostate adenocarcinoma definitive HDR brachytherapy boost"],
+["416","prost","Prostate adenocarcinoma definitive LDR brachytherapy permanent seeds"],
+["4487","prost","Prostate adenocarcinoma prostate bed salvage or adjuvant EBRT"],
+["3659","prost","Prostate adenocarcinoma palliative EBRT low volume metastatic disease"],
+["3370","prost","Prostate adenocarcinoma definitive EBRT hypofractionation",1],
+["305","prost","Prostate adenocarcinoma salvage EBRT post radical prostatectomy",1],
+["1025","blad","Bladder carcinoma definitive EBRT with or without chemotherapy"],
+["1026","blad","Bladder carcinoma palliative EBRT"],
+["4381","kid","Renal cell carcinoma definitive stereotactic EBRT"],
+["4440","kid","Adrenal metastases stereotactic EBRT"],
+["1804","haem","Non-Hodgkin diffuse large B-cell lymphoma limited-stage EBRT to involved sites"],
+["1817","haem","Non-Hodgkin diffuse large B-cell lymphoma advanced-stage EBRT to involved sites"],
+["3608","haem","Non-Hodgkin follicular lymphoma definitive EBRT"],
+["4401","haem","Non-Hodgkin primary cutaneous T-cell lymphoma definitive or palliative EBRT"],
+["4617","haem","Non-Hodgkin primary cutaneous T-cell lymphoma palliative total skin electron therapy"],
+["3619","haem","Hodgkin lymphoma early-stage EBRT to involved sites"],
+["1849","haem","Hodgkin lymphoma advanced-stage EBRT to involved sites"],
+["1245","haem","Primary CNS lymphoma (PCNSL) whole brain consolidation EBRT"],
+["1768","haem","Hodgkin lymphoma early stage favourable EBRT to involved sites",1],
+["1032","skin","Skin cancer basal cell carcinoma definitive EBRT"],
+["4541","skin","Skin cancer basal cell carcinoma adjuvant EBRT post-operative"],
+["1036","skin","Skin cancer squamous cell carcinoma definitive EBRT"],
+["1033","skin","Skin cancer squamous cell carcinoma adjuvant EBRT post-operative"],
+["1142","skin","Skin cancer Merkel cell carcinoma definitive EBRT"],
+["1023","skin","Skin cancer Merkel cell carcinoma adjuvant EBRT post-operative"],
+["1170","skin","Skin cancer melanoma adjuvant EBRT post-operative"],
+["268","pall","Bone metastases palliative EBRT"],
+["4098","pall","Spinal bone metastases palliative EBRT stereotactic"],
+["4099","pall","Non-spine bone metastases palliative EBRT stereotactic"],
+["296","pall","Spinal cord compression palliative EBRT"],
+["1251","pall","Brain metastases palliative EBRT whole brain"],
+["3882","pall","Brain metastases palliative EBRT hippocampal avoidance whole brain"],
+["3253","pall","Brain metastases palliative EBRT stereotactic"],
+["3572","pall","Brain metastases palliative EBRT stereotactic post-operative"],
+["295","pall","Superior vena cava obstruction palliative EBRT"],
+["269","pall","Hepatic metastases palliative EBRT"]
+];
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function tagsOf(t,k,off){const x=[];const l=t.toLowerCase();
+ if(/stereotactic|ultra-hypo/.test(l))x.push(["sbrt","SBRT"]);
+ if(/brachytherapy/.test(l))x.push(["brachy","Braqui"]);
+ if(/chemoradiation|with or without chemo/.test(l))x.push(["crt","QT-RT"]);
+ if(/palliative/.test(l)&&k!=="pall")x.push(["pall","Paliativo"]);
+ if(off)x.push(["off","Discontinuado"]);return x;}
+// Spanish search aliases
+const ALIAS={"estereotactica":"stereotactic sbrt sabr srs","radiocirugia":"stereotactic","braquiterapia":"brachytherapy","semillas":"ldr seeds","hipofraccionamiento":"hypofractionation","adyuvante":"adjuvant","neoadyuvante":"neoadjuvant","radical":"definitive","definitivo":"definitive","paliativo":"palliative","metastasis":"metastases","oligometastasis":"oligometastases","quimiorradioterapia":"chemoradiation","rescate":"salvage","ganglios":"nodal lymph nodes","cerebro":"brain","higado":"hepatic","esofago":"oesophageal","laringe":"larynx","nasofaringe":"nasopharynx","orofaringe":"oropharynx","cavidad oral":"oral cavity","glandula salival":"salivary","cervix":"cervix","endometrio":"endometrium","vulva":"vulval","linfoma":"lymphoma","compresion medular":"spinal cord compression","vena cava":"superior vena cava","electrones":"electron","mama":"breast","pulmon":"lung","recto":"rectal","ano":"anal","vejiga":"bladder","prostata":"prostate","piel":"skin"};
+const DATA=P.map(([id,k,t,off])=>{const c=CATS.find(c=>c.k===k);return{id,k,t,off:!!off,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw)};});
+let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem("eviqFav")||"[]"))}catch(e){}
+const saveFav=()=>{try{localStorage.setItem("eviqFav",JSON.stringify([...favs]))}catch(e){}};
+let cat="all";try{cat=localStorage.getItem("eviqCat")||"all"}catch(e){}
+const $=s=>document.querySelector(s);
+function expand(q){let e=q;for(const[a,b]of Object.entries(ALIAS)){if(q.includes(a))e+=" "+b}return e}
+function match(d,q){if(!q)return true;const words=norm(q).split(/\s+/).filter(Boolean);
+ return words.every(w=>{const alt=norm(expand(w)).split(/\s+/);return alt.some(a=>d.hay.includes(a))||(w==="sbrt"&&d.tags.some(t=>t[0]==="sbrt"))});}
+function chips(){const el=$("#chips");el.innerHTML="";
+ const visible=DATA.filter(d=>$("#showOff").checked||!d.off);
+ const mk=(k,label,n)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.setAttribute("aria-pressed",cat===k);b.innerHTML=label+'<span class="n">'+n+"</span>";b.onclick=()=>{cat=k;try{localStorage.setItem("eviqCat",k)}catch(e){};render()};el.appendChild(b)};
+ mk("all","Todos",visible.length);
+ mk("sbrt","SBRT",visible.filter(d=>d.tags.some(t=>t[0]==="sbrt")).length);
+ CATS.forEach(c=>mk(c.k,c.es,visible.filter(d=>d.k===c.k).length));}
+function render(){chips();const q=$("#q").value.trim(),fo=$("#favOnly").checked,so=$("#showOff").checked;
+ const items=DATA.filter(d=>(so||!d.off)&&(!fo||favs.has(d.id))&&(cat==="all"||(cat==="sbrt"?d.tags.some(t=>t[0]==="sbrt"):d.k===cat))&&match(d,q));
+ const main=$("#list");main.innerHTML="";$("#count").textContent=items.length+" protocolos";
+ if(!items.length){main.innerHTML='<div class="empty">Ningún protocolo coincide. Prueba otro término o <a href="'+B+'/Radiation-oncology" target="_blank" rel="noopener">busca directamente en eviQ</a>.</div>';return}
+ CATS.forEach(c=>{const g=items.filter(d=>d.k===c.k);if(!g.length)return;
+  const s=document.createElement("section");
+  s.innerHTML='<h2>'+c.es+' <a href="'+B+c.path+'" target="_blank" rel="noopener">Ver sección en eviQ ↗</a></h2>';
+  const ul=document.createElement("ul");
+  g.forEach(d=>{const li=document.createElement("li");if(d.off)li.className="off";
+   li.innerHTML='<a class="p" href="'+B+'/p/'+d.id+'" target="_blank" rel="noopener"><span class="id">ID '+d.id+'</span><span class="t"></span>'+(d.tags.length?'<span class="tags">'+d.tags.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join("")+'</span>':"")+'</a><button class="fav" type="button" aria-label="Favorito" aria-pressed="'+favs.has(d.id)+'">★</button>';
+   li.querySelector(".t").textContent=d.t;
+   li.querySelector(".fav").onclick=e=>{favs.has(d.id)?favs.delete(d.id):favs.add(d.id);saveFav();e.currentTarget.setAttribute("aria-pressed",favs.has(d.id));if(fo)render()};
+   ul.appendChild(li)});
+  s.appendChild(ul);main.appendChild(s)});}
+$("#q").addEventListener("input",render);$("#favOnly").addEventListener("change",render);$("#showOff").addEventListener("change",render);
+render();
+</script>
+</body>
+</html>
