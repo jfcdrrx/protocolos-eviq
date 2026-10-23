@@ -1,0 +1,27 @@
+name: Actualizar protocolos eviQ
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # todos los días, 04:17 UTC (06:17 en Madrid en verano)
+  workflow_dispatch:        # botón "Run workflow" para lanzarlo a mano
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Consultar eviQ y actualizar protocols.json
+        run: python scripts/update_eviq.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add protocols.json
+          git diff --cached --quiet || git commit -m "Actualización diaria de protocolos eviQ"
+          git push
