@@ -40,7 +40,7 @@ header p{margin:.35rem 0 0;color:var(--muted);font-size:.9rem;max-width:62ch}
 .search{display:flex;gap:8px;align-items:center}
 #q{flex:1;min-width:0;font:inherit;font-size:1rem;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
 #q:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;font:inherit;font-size:.82rem;font-weight:500;border:0;border-radius:999px;padding:6px 11px;background:var(--chip);color:var(--fg);cursor:pointer;white-space:nowrap}
 .chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-fg)}
@@ -62,7 +62,7 @@ li a.p:hover{background:var(--accent-soft)}
 .t{font-size:.93rem;font-weight:500;overflow-wrap:anywhere}
 .tags{grid-column:2;display:flex;gap:5px;flex-wrap:wrap}
 .tag{font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:4px;border:1px solid currentColor}
-.tag.sbrt{color:var(--sbrt)} .tag.brachy{color:var(--brachy)} .tag.pall{color:var(--pall)} .tag.crt{color:var(--muted)} .tag.off{color:var(--off)}
+.tag.sbrt,.tag.srs{color:var(--sbrt)} .tag.brachy{color:var(--brachy)} .tag.pall{color:var(--pall)} .tag.crt{color:var(--muted)} .tag.off{color:var(--off)}
 li.off .t{color:var(--off);text-decoration:line-through;text-decoration-thickness:1px}
 .fav{flex:none;width:46px;border:0;background:none;color:var(--line);font-size:1.25rem;cursor:pointer}
 .fav[aria-pressed="true"]{color:var(--accent)}
@@ -218,7 +218,7 @@ const P=[
 ];
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 function tagsOf(t,k,off){const x=[];const l=t.toLowerCase();
- if(/stereotactic|ultra-hypo/.test(l))x.push(["sbrt","SBRT"]);
+ if(/stereotactic|ultra-hypo/.test(l))x.push(/brain/.test(l)?["srs","SRS"]:["sbrt","SBRT"]);
  if(/brachytherapy/.test(l))x.push(["brachy","Braqui"]);
  if(/chemoradiation|with or without chemo/.test(l))x.push(["crt","QT-RT"]);
  if(/palliative/.test(l)&&k!=="pall")x.push(["pall","Paliativo"]);
@@ -232,15 +232,16 @@ let cat="all";
 const $=s=>document.querySelector(s);
 function expand(q){let e=q;for(const[a,b]of Object.entries(ALIAS)){if(q.includes(a))e+=" "+b}return e}
 function match(d,q){if(!q)return true;const words=norm(q).split(/\s+/).filter(Boolean);
- return words.every(w=>{const alt=norm(expand(w)).split(/\s+/);return alt.some(a=>d.hay.includes(a))||(w==="sbrt"&&d.tags.some(t=>t[0]==="sbrt"))});}
+ return words.every(w=>{const alt=norm(expand(w)).split(/\s+/);return alt.some(a=>d.hay.includes(a))||((w==="sbrt"||w==="srs")&&d.tags.some(t=>t[0]===w))});}
 function chips(){const el=$("#chips");el.innerHTML="";
  const visible=DATA.filter(d=>$("#showOff").checked||!d.off);
  const mk=(k,label,n)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.setAttribute("aria-pressed",cat===k);b.innerHTML=label+'<span class="n">'+n+"</span>";b.onclick=()=>{cat=k;render()};el.appendChild(b)};
  mk("all","Todos",visible.length);
- mk("sbrt","SBRT / SRS",visible.filter(d=>d.tags.some(t=>t[0]==="sbrt")).length);
+ mk("sbrt","SBRT",visible.filter(d=>d.tags.some(t=>t[0]==="sbrt")).length);
+ mk("srs","SRS",visible.filter(d=>d.tags.some(t=>t[0]==="srs")).length);
  CATS.forEach(c=>mk(c.k,c.es,visible.filter(d=>d.k===c.k).length));}
 function render(){chips();const q=$("#q").value.trim(),fo=$("#favOnly").checked,so=$("#showOff").checked;
- const items=DATA.filter(d=>(so||!d.off)&&(!fo||favs.has(d.id))&&(cat==="all"||(cat==="sbrt"?d.tags.some(t=>t[0]==="sbrt"):d.k===cat))&&match(d,q));
+ const items=DATA.filter(d=>(so||!d.off)&&(!fo||favs.has(d.id))&&(cat==="all"||(cat==="sbrt"||cat==="srs"?d.tags.some(t=>t[0]===cat):d.k===cat))&&match(d,q));
  const main=$("#list");main.innerHTML="";$("#count").textContent=items.length+" protocolos";
  if(!items.length){main.innerHTML='<div class="empty">Ningún protocolo coincide. Prueba otro término o <a href="'+B+'/Radiation-oncology" target="_blank" rel="noopener">busca directamente en eviQ</a>.</div>';return}
  CATS.forEach(c=>{const g=items.filter(d=>d.k===c.k);if(!g.length)return;
