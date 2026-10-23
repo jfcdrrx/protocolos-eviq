@@ -7,7 +7,7 @@ marks a protocol as retired when eviQ labels it DISCONTINUED / SUPERSEDED
 or when it disappears from the sitemap. Only titles and links are stored;
 no eviQ content is copied.
 """
-import datetime, html, json, re, sys, time, urllib.request
+import datetime, html, json, re, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
 BASE = "https://www.eviq.org.au"
@@ -98,14 +98,24 @@ def main():
             "url": f["url"], "lastmod": f["lastmod"],
         })
 
-    # Protocols that vanished from the sitemap stay listed as retired
-    vanished = [p for pid, p in known.items() if pid not in found]
-    was_active = sum(not p.get("off") for p in known.values()) or 1
-    if sum(not p.get("off") for p in vanished) > 0.3 * was_active:
-        print("Demasiados protocolos desaparecidos a la vez (%d); no se cambia nada." % len(vanished))
-        return 1
-    for p in vanished:
-        result.append({**p, "off": True})
+    # Protocols missing from the sitemap: the sitemap is not complete, so check
+    # each page directly. Retired only if eviQ says so or the page is gone (404/410).
+    for pid, p in known.items():
+        if pid in found:
+            continue
+        p = dict(p)
+        try:
+            t = page_title(p.get("url") or "%s/p/%s" % (BASE, pid))
+            time.sleep(1)
+            if t:
+                p["title"] = t
+            p["off"] = bool(RETIRED.search(p["title"]))
+        except urllib.error.HTTPError as e:
+            if e.code in (404, 410):
+                p["off"] = True
+        except Exception as e:
+            print("No se pudo comprobar", pid, e)  # keep previous status
+        result.append(p)
 
     result.sort(key=lambda p: (p["cat"], p["off"], int(p["id"])))
     data = {
