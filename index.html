@@ -16,7 +16,7 @@
   --accent:#d2452c;        /* isodose red: the 100% line */
   --accent-soft:#fbe7e2;
   --chip:#e7ecf1; --chip-on:#14202b; --chip-on-fg:#ffffff;
-  --sbrt:#7a3fb0; --brachy:#0f7d6b; --pall:#a86512; --off:#8a96a3;
+  --sbrt:#7a3fb0; --brachy:#0f7d6b; --pall:#a86512; --off:#8a96a3; --on:#1d7a3e;
   --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --f-body:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -24,11 +24,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#26323e;
   --accent:#ff7a5c; --accent-soft:#3a201b; --chip:#1f2b37; --chip-on:#e6edf3; --chip-on-fg:#0f161d;
-  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; color-scheme:dark}}
+  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; --on:#62cf8b; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#26323e;
   --accent:#ff7a5c; --accent-soft:#3a201b; --chip:#1f2b37; --chip-on:#e6edf3; --chip-on-fg:#0f161d;
-  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; color-scheme:dark}
+  --sbrt:#c79bf2; --brachy:#5fd3bd; --pall:#f0b25f; --off:#6d7b88; --on:#62cf8b; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
@@ -62,7 +62,8 @@ li a.p:hover{background:var(--accent-soft)}
 .t{font-size:.93rem;font-weight:500;overflow-wrap:anywhere}
 .tags{grid-column:2;display:flex;gap:5px;flex-wrap:wrap}
 .tag{font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:1px 6px;border-radius:4px;border:1px solid currentColor}
-.tag.sbrt,.tag.srs{color:var(--sbrt)} .tag.brachy{color:var(--brachy)} .tag.pall{color:var(--pall)} .tag.crt{color:var(--muted)} .tag.off{color:var(--off)}
+.tag.sbrt,.tag.srs{color:var(--sbrt)} .tag.brachy{color:var(--brachy)} .tag.pall{color:var(--pall)} .tag.crt{color:var(--muted)} .tag.off{color:var(--off)} .tag.on{color:var(--on)}
+.tag.on::before,.tag.off::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:4px;vertical-align:1px}
 li.off .t{color:var(--off);text-decoration:line-through;text-decoration-thickness:1px}
 .fav{flex:none;width:46px;border:0;background:none;color:var(--line);font-size:1.25rem;cursor:pointer}
 .fav[aria-pressed="true"]{color:var(--accent)}
@@ -90,7 +91,7 @@ body{margin:0}
   <div class="chips" id="chips" role="toolbar" aria-label="Localización"></div>
   <div class="opts">
     <label><input type="checkbox" id="favOnly"> Solo favoritos</label>
-    <label><input type="checkbox" id="showOff"> Mostrar discontinuados</label>
+    <label><input type="checkbox" id="showOff"> Mostrar retirados</label>
     <span class="count" id="count"></span>
   </div>
 </div>
@@ -98,7 +99,7 @@ body{margin:0}
 <main id="list"></main>
 
 <footer>
-  <div>Índice recopilado el 23 oct 2026. eviQ añade y retira protocolos con frecuencia: usa «Ver sección en eviQ» para la lista completa y actual de cada localización.</div>
+  <div id="checked">Índice recopilado el 23 oct 2026. Usa «Ver sección en eviQ» para la lista completa y actual de cada localización.</div>
   <div>Contenido: <a href="https://www.eviq.org.au/" target="_blank" rel="noopener">eviQ Cancer Treatments Online</a>, Cancer Institute NSW, bajo licencia CC BY-NC 4.0. Esta app solo enlaza a eviQ; no aloja ni modifica su contenido y no está afiliada a eviQ. Guía clínica de referencia, no sustituye el juicio profesional.</div>
 </footer>
 </div>
@@ -118,7 +119,8 @@ const CATS=[
  {k:"kid",es:"Riñón y suprarrenal",path:"/Radiation-oncology/Urogenital/Kidney-and-adrenal",kw:"riñon rinon renal suprarrenal"},
  {k:"haem",es:"Hematología",path:"/Radiation-oncology/Haematology",kw:"linfoma hematologia hodgkin"},
  {k:"skin",es:"Piel",path:"/Radiation-oncology/Skin",kw:"piel cutaneo melanoma"},
- {k:"pall",es:"Paliativo",path:"/Radiation-oncology/Palliative",kw:"paliativo metastasis"}
+ {k:"pall",es:"Paliativo",path:"/Radiation-oncology/Palliative",kw:"paliativo metastasis"},
+ {k:"stereo",es:"Estereotáctica",path:"/Radiation-oncology/Stereotactic",kw:"estereotactica stereotactic"}
 ];
 // [id, category, title, discontinued?]
 const P=[
@@ -218,14 +220,15 @@ const P=[
 ];
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 function tagsOf(t,k,off){const x=[];const l=t.toLowerCase();
- if(/stereotactic|ultra-hypo/.test(l))x.push(/brain/.test(l)?["srs","SRS"]:["sbrt","SBRT"]);
+ if(/stereotactic|ultra-hypo/.test(l))x.push(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/.test(l)?["srs","SRS"]:["sbrt","SBRT"]);
  if(/brachytherapy/.test(l))x.push(["brachy","Braqui"]);
  if(/chemoradiation|with or without chemo/.test(l))x.push(["crt","QT-RT"]);
  if(/palliative/.test(l)&&k!=="pall")x.push(["pall","Paliativo"]);
- if(off)x.push(["off","Discontinuado"]);return x;}
+ x.unshift(off?["off","Retirado"]:["on","Activo"]);return x;}
 // Spanish search aliases
 const ALIAS={"estereotactica":"stereotactic sbrt sabr srs","radiocirugia":"srs","braquiterapia":"brachytherapy","semillas":"ldr seeds","hipofraccionamiento":"hypofractionation","adyuvante":"adjuvant","neoadyuvante":"neoadjuvant","radical":"definitive","definitivo":"definitive","paliativo":"palliative","metastasis":"metastases","oligometastasis":"oligometastases","quimiorradioterapia":"chemoradiation","rescate":"salvage","ganglios":"nodal lymph nodes","cerebro":"brain","higado":"hepatic","esofago":"oesophageal","laringe":"larynx","nasofaringe":"nasopharynx","orofaringe":"oropharynx","cavidad oral":"oral cavity","glandula salival":"salivary","cervix":"cervix","endometrio":"endometrium","vulva":"vulval","linfoma":"lymphoma","compresion medular":"spinal cord compression","vena cava":"superior vena cava","electrones":"electron","mama":"breast","pulmon":"lung","recto":"rectal","ano":"anal","vejiga":"bladder","prostata":"prostate","piel":"skin"};
-const DATA=P.map(([id,k,t,off])=>{const c=CATS.find(c=>c.k===k);return{id,k,t,off:!!off,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw+(/stereotactic|ultra-hypo/i.test(t)?" sbrt sabr srt estereotactica"+(/brain/i.test(t)?" srs radiocirugia":""):""))};});
+function build(list){return list.map(({id,k,t,off,url})=>{const c=CATS.find(c=>c.k===k)||CATS[CATS.length-1];k=c.k;return{id,k,t,off:!!off,url,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw+(/stereotactic|ultra-hypo/i.test(t)?" sbrt sabr srt estereotactica"+(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/i.test(t)?" srs radiocirugia":""):""))};});}
+let DATA=build(P.map(([id,k,t,off])=>({id,k,t,off})));
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem("eviqFav")||"[]"))}catch(e){}
 const saveFav=()=>{try{localStorage.setItem("eviqFav",JSON.stringify([...favs]))}catch(e){}};
 let cat="all";
@@ -249,13 +252,20 @@ function render(){chips();const q=$("#q").value.trim(),fo=$("#favOnly").checked,
   s.innerHTML='<h2>'+c.es+' <a href="'+B+c.path+'" target="_blank" rel="noopener">Ver sección en eviQ ↗</a></h2>';
   const ul=document.createElement("ul");
   g.forEach(d=>{const li=document.createElement("li");if(d.off)li.className="off";
-   li.innerHTML='<a class="p" href="'+B+'/p/'+d.id+'" target="_blank" rel="noopener"><span class="id">ID '+d.id+'</span><span class="t"></span>'+(d.tags.length?'<span class="tags">'+d.tags.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join("")+'</span>':"")+'</a><button class="fav" type="button" aria-label="Favorito" aria-pressed="'+favs.has(d.id)+'">★</button>';
+   li.innerHTML='<a class="p" href="'+(d.url||B+'/p/'+d.id)+'" target="_blank" rel="noopener"><span class="id">ID '+d.id+'</span><span class="t"></span>'+(d.tags.length?'<span class="tags">'+d.tags.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join("")+'</span>':"")+'</a><button class="fav" type="button" aria-label="Favorito" aria-pressed="'+favs.has(d.id)+'">★</button>';
    li.querySelector(".t").textContent=d.t;
    li.querySelector(".fav").onclick=e=>{favs.has(d.id)?favs.delete(d.id):favs.add(d.id);saveFav();e.currentTarget.setAttribute("aria-pressed",favs.has(d.id));if(fo)render()};
    ul.appendChild(li)});
   s.appendChild(ul);main.appendChild(s)});}
 $("#q").addEventListener("input",()=>{if($("#q").value.trim())cat="all";render()});$("#favOnly").addEventListener("change",render);$("#showOff").addEventListener("change",render);
 render();
+// Daily list from GitHub Actions (protocols.json next to this page). Falls back to the built-in list.
+fetch("protocols.json",{cache:"no-cache"}).then(r=>r.ok?r.json():null).then(j=>{
+ if(!j||!Array.isArray(j.protocols)||j.protocols.length<20)return;
+ DATA=build(j.protocols.map(p=>({id:String(p.id),k:p.cat,t:p.title,off:p.off,url:p.url})));
+ if(j.checked){const d=new Date(j.checked+"T12:00:00");$("#checked").textContent="Lista comprobada con eviQ el "+d.toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"})+". Se actualiza automáticamente cada día.";}
+ render();
+}).catch(()=>{});
 </script>
 </body>
 </html>
