@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#14202b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="eviQ RT">
-<title>Protocolos RT eviQ</title>
+<title>eviQ RT Protocols</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
@@ -81,17 +81,17 @@ body{margin:0}
 <body>
 <div class="wrap">
 <header>
-  <h1><svg class="iso" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="var(--line)" stroke-width="2"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="var(--muted)" stroke-width="2"/><circle cx="16" cy="16" r="5" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>Protocolos RT eviQ</h1>
-  <p>Índice de protocolos de oncología radioterápica de eviQ. Toca uno para abrirlo en la web oficial. ★ guarda favoritos en este dispositivo.</p>
-  <p class="byline">App diseñada por J.F. Calvo-Ortega · 23/10/2026</p>
+  <h1><svg class="iso" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="var(--line)" stroke-width="2"/><circle cx="16" cy="16" r="9.5" fill="none" stroke="var(--muted)" stroke-width="2"/><circle cx="16" cy="16" r="5" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>eviQ RT Protocols</h1>
+  <p>Index of eviQ radiation oncology protocols. Tap a protocol to open it on the official eviQ website. ★ saves favourites on this device.</p>
+  <p class="byline">App designed by J.F. Calvo-Ortega · 23/10/2026</p>
 </header>
 
 <div class="bar">
-  <div class="search"><input id="q" type="search" placeholder="Buscar: próstata, SBRT, 4140, glioma…" autocomplete="off" aria-label="Buscar protocolo"></div>
-  <div class="chips" id="chips" role="toolbar" aria-label="Localización"></div>
+  <div class="search"><input id="q" type="search" placeholder="Search: prostate, SBRT, 4140, glioma…" autocomplete="off" aria-label="Search protocols"></div>
+  <div class="chips" id="chips" role="toolbar" aria-label="Tumour site"></div>
   <div class="opts">
-    <label><input type="checkbox" id="favOnly"> Solo favoritos</label>
-    <label><input type="checkbox" id="showOff"> Mostrar retirados</label>
+    <label><input type="checkbox" id="favOnly"> Favourites only</label>
+    <label><input type="checkbox" id="showOff"> Show retired</label>
     <span class="count" id="count"></span>
   </div>
 </div>
@@ -99,28 +99,28 @@ body{margin:0}
 <main id="list"></main>
 
 <footer>
-  <div id="checked">Índice recopilado el 23 oct 2026. Usa «Ver sección en eviQ» para la lista completa y actual de cada localización.</div>
-  <div>Contenido: <a href="https://www.eviq.org.au/" target="_blank" rel="noopener">eviQ Cancer Treatments Online</a>, Cancer Institute NSW, bajo licencia CC BY-NC 4.0. Esta app solo enlaza a eviQ; no aloja ni modifica su contenido y no está afiliada a eviQ. Guía clínica de referencia, no sustituye el juicio profesional.</div>
+  <div id="checked">Index compiled on 23 October 2026. Use “View section on eviQ” for the complete, current list for each tumour site.</div>
+  <div>Content: <a href="https://www.eviq.org.au/" target="_blank" rel="noopener">eviQ Cancer Treatments Online</a>, Cancer Institute NSW, licensed under CC BY-NC 4.0. This app only links to eviQ; it does not host or modify eviQ content and is not affiliated with eviQ. It is a clinical reference and does not replace professional judgement.</div>
 </footer>
 </div>
 
 <script>
 const B="https://www.eviq.org.au";
 const CATS=[
- {k:"breast",es:"Mama",path:"/Radiation-oncology/Breast",kw:"mama breast"},
- {k:"hn",es:"Cabeza y cuello",path:"/Radiation-oncology/Head-and-neck",kw:"cabeza cuello orl head neck"},
- {k:"neuro",es:"SNC",path:"/Radiation-oncology/Neurological",kw:"cerebro snc neurologico glioma brain"},
- {k:"resp",es:"Pulmón",path:"/Radiation-oncology/Respiratory",kw:"pulmon torax lung respiratorio"},
- {k:"ugi",es:"Digestivo alto",path:"/Radiation-oncology/Upper-gastrointestinal",kw:"esofago pancreas higado estomago digestivo"},
- {k:"cr",es:"Recto y ano",path:"/Radiation-oncology/Colorectal",kw:"recto ano colorrectal"},
- {k:"gyn",es:"Ginecológico",path:"/Radiation-oncology/Gynaecological",kw:"ginecologico cervix cuello utero endometrio vulva"},
- {k:"prost",es:"Próstata",path:"/Radiation-oncology/Urogenital/Prostate",kw:"prostata urologico"},
- {k:"blad",es:"Vejiga",path:"/Radiation-oncology/Urogenital/Bladder",kw:"vejiga urologico"},
- {k:"kid",es:"Riñón y suprarrenal",path:"/Radiation-oncology/Urogenital/Kidney-and-adrenal",kw:"riñon rinon renal suprarrenal"},
- {k:"haem",es:"Hematología",path:"/Radiation-oncology/Haematology",kw:"linfoma hematologia hodgkin"},
- {k:"skin",es:"Piel",path:"/Radiation-oncology/Skin",kw:"piel cutaneo melanoma"},
- {k:"pall",es:"Paliativo",path:"/Radiation-oncology/Palliative",kw:"paliativo metastasis"},
- {k:"stereo",es:"Estereotáctica",path:"/Radiation-oncology/Stereotactic",kw:"estereotactica stereotactic"}
+ {k:"breast",es:"Breast",path:"/Radiation-oncology/Breast",kw:"mama breast"},
+ {k:"hn",es:"Head & neck",path:"/Radiation-oncology/Head-and-neck",kw:"cabeza cuello orl head neck"},
+ {k:"neuro",es:"CNS",path:"/Radiation-oncology/Neurological",kw:"cerebro snc neurologico glioma brain"},
+ {k:"resp",es:"Lung",path:"/Radiation-oncology/Respiratory",kw:"pulmon torax lung respiratorio"},
+ {k:"ugi",es:"Upper GI",path:"/Radiation-oncology/Upper-gastrointestinal",kw:"esofago pancreas higado estomago digestivo"},
+ {k:"cr",es:"Rectum & anus",path:"/Radiation-oncology/Colorectal",kw:"recto ano colorrectal"},
+ {k:"gyn",es:"Gynaecological",path:"/Radiation-oncology/Gynaecological",kw:"ginecologico cervix cuello utero endometrio vulva"},
+ {k:"prost",es:"Prostate",path:"/Radiation-oncology/Urogenital/Prostate",kw:"prostata urologico"},
+ {k:"blad",es:"Bladder",path:"/Radiation-oncology/Urogenital/Bladder",kw:"vejiga urologico"},
+ {k:"kid",es:"Kidney & adrenal",path:"/Radiation-oncology/Urogenital/Kidney-and-adrenal",kw:"riñon rinon renal suprarrenal"},
+ {k:"haem",es:"Haematology",path:"/Radiation-oncology/Haematology",kw:"linfoma hematologia hodgkin"},
+ {k:"skin",es:"Skin",path:"/Radiation-oncology/Skin",kw:"piel cutaneo melanoma"},
+ {k:"pall",es:"Palliative",path:"/Radiation-oncology/Palliative",kw:"paliativo metastasis"},
+ {k:"other",es:"Other",path:"/Radiation-oncology",kw:""}
 ];
 // [id, category, title, discontinued?]
 const P=[
@@ -220,14 +220,14 @@ const P=[
 ];
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 function tagsOf(t,k,off){const x=[];const l=t.toLowerCase();
- if(/stereotactic|ultra-hypo/.test(l))x.push(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/.test(l)?["srs","SRS"]:["sbrt","SBRT"]);
- if(/brachytherapy/.test(l))x.push(["brachy","Braqui"]);
- if(/chemoradiation|with or without chemo/.test(l))x.push(["crt","QT-RT"]);
- if(/palliative/.test(l)&&k!=="pall")x.push(["pall","Paliativo"]);
- x.unshift(off?["off","Retirado"]:["on","Activo"]);return x;}
+ if(/stereotactic|ultra-hypo/.test(l))x.push(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/.test(l)?["srs","Cranial SRS"]:["sbrt","SBRT"]);
+ if(/brachytherapy/.test(l))x.push(["brachy","Brachy"]);
+ if(/chemoradiation|with or without chemo/.test(l))x.push(["crt","Chemo-RT"]);
+ if(/palliative/.test(l)&&k!=="pall")x.push(["pall","Palliative"]);
+ x.unshift(off?["off","Retired"]:["on","Active"]);return x;}
 // Spanish search aliases
 const ALIAS={"estereotactica":"stereotactic sbrt sabr srs","radiocirugia":"srs","braquiterapia":"brachytherapy","semillas":"ldr seeds","hipofraccionamiento":"hypofractionation","adyuvante":"adjuvant","neoadyuvante":"neoadjuvant","radical":"definitive","definitivo":"definitive","paliativo":"palliative","metastasis":"metastases","oligometastasis":"oligometastases","quimiorradioterapia":"chemoradiation","rescate":"salvage","ganglios":"nodal lymph nodes","cerebro":"brain","higado":"hepatic","esofago":"oesophageal","laringe":"larynx","nasofaringe":"nasopharynx","orofaringe":"oropharynx","cavidad oral":"oral cavity","glandula salival":"salivary","cervix":"cervix","endometrio":"endometrium","vulva":"vulval","linfoma":"lymphoma","compresion medular":"spinal cord compression","vena cava":"superior vena cava","electrones":"electron","mama":"breast","pulmon":"lung","recto":"rectal","ano":"anal","vejiga":"bladder","prostata":"prostate","piel":"skin"};
-function build(list){return list.map(({id,k,t,off,url})=>{const c=CATS.find(c=>c.k===k)||CATS[CATS.length-1];k=c.k;return{id,k,t,off:!!off,url,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw+(/stereotactic|ultra-hypo/i.test(t)?" sbrt sabr srt estereotactica"+(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/i.test(t)?" srs radiocirugia":""):""))};});}
+function build(list){return list.map(({id,k,t,off,url})=>{const c=CATS.find(c=>c.k===k)||CATS[CATS.length-1];k=c.k;return{id,k,t,off:!!off,url,tags:tagsOf(t,k,off),hay:norm(id+" "+t+" "+c.es+" "+c.kw+(/stereotactic|ultra-hypo/i.test(t)?" sbrt sabr srt estereotactica"+(/brain|radiosurgery|intracranial|trigeminal|vestibular|meningioma/i.test(t)?" srs cranial radiosurgery radiocirugia":""):""))};});}
 let DATA=build(P.map(([id,k,t,off])=>({id,k,t,off})));
 let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem("eviqFav")||"[]"))}catch(e){}
 const saveFav=()=>{try{localStorage.setItem("eviqFav",JSON.stringify([...favs]))}catch(e){}};
@@ -239,20 +239,20 @@ function match(d,q){if(!q)return true;const words=norm(q).split(/\s+/).filter(Bo
 function chips(){const el=$("#chips");el.innerHTML="";
  const visible=DATA.filter(d=>$("#showOff").checked||!d.off);
  const mk=(k,label,n)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.setAttribute("aria-pressed",cat===k);b.innerHTML=label+'<span class="n">'+n+"</span>";b.onclick=()=>{cat=k;render()};el.appendChild(b)};
- mk("all","Todos",visible.length);
+ mk("all","All",visible.length);
  mk("sbrt","SBRT",visible.filter(d=>d.tags.some(t=>t[0]==="sbrt")).length);
- mk("srs","SRS",visible.filter(d=>d.tags.some(t=>t[0]==="srs")).length);
- CATS.forEach(c=>mk(c.k,c.es,visible.filter(d=>d.k===c.k).length));}
+ mk("srs","Cranial SRS",visible.filter(d=>d.tags.some(t=>t[0]==="srs")).length);
+ CATS.forEach(c=>{const n=visible.filter(d=>d.k===c.k).length;if(c.k!=="other"||n)mk(c.k,c.es,n)});}
 function render(){chips();const q=$("#q").value.trim(),fo=$("#favOnly").checked,so=$("#showOff").checked;
  const items=DATA.filter(d=>(so||!d.off)&&(!fo||favs.has(d.id))&&(cat==="all"||(cat==="sbrt"||cat==="srs"?d.tags.some(t=>t[0]===cat):d.k===cat))&&match(d,q));
- const main=$("#list");main.innerHTML="";$("#count").textContent=items.length+" protocolos";
- if(!items.length){main.innerHTML='<div class="empty">Ningún protocolo coincide. Prueba otro término o <a href="'+B+'/Radiation-oncology" target="_blank" rel="noopener">busca directamente en eviQ</a>.</div>';return}
+ const main=$("#list");main.innerHTML="";$("#count").textContent=items.length+(items.length===1?" protocol":" protocols");
+ if(!items.length){main.innerHTML='<div class="empty">No protocols match. Try another term or <a href="'+B+'/Radiation-oncology" target="_blank" rel="noopener">search eviQ directly</a>.</div>';return}
  CATS.forEach(c=>{const g=items.filter(d=>d.k===c.k);if(!g.length)return;
   const s=document.createElement("section");
-  s.innerHTML='<h2>'+c.es+' <a href="'+B+c.path+'" target="_blank" rel="noopener">Ver sección en eviQ ↗</a></h2>';
+  s.innerHTML='<h2>'+c.es+' <a href="'+B+c.path+'" target="_blank" rel="noopener">View section on eviQ ↗</a></h2>';
   const ul=document.createElement("ul");
   g.forEach(d=>{const li=document.createElement("li");if(d.off)li.className="off";
-   li.innerHTML='<a class="p" href="'+(d.url||B+'/p/'+d.id)+'" target="_blank" rel="noopener"><span class="id">ID '+d.id+'</span><span class="t"></span>'+(d.tags.length?'<span class="tags">'+d.tags.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join("")+'</span>':"")+'</a><button class="fav" type="button" aria-label="Favorito" aria-pressed="'+favs.has(d.id)+'">★</button>';
+   li.innerHTML='<a class="p" href="'+(d.url||B+'/p/'+d.id)+'" target="_blank" rel="noopener"><span class="id">ID '+d.id+'</span><span class="t"></span>'+(d.tags.length?'<span class="tags">'+d.tags.map(t=>'<span class="tag '+t[0]+'">'+t[1]+'</span>').join("")+'</span>':"")+'</a><button class="fav" type="button" aria-label="Favourite" aria-pressed="'+favs.has(d.id)+'">★</button>';
    li.querySelector(".t").textContent=d.t;
    li.querySelector(".fav").onclick=e=>{favs.has(d.id)?favs.delete(d.id):favs.add(d.id);saveFav();e.currentTarget.setAttribute("aria-pressed",favs.has(d.id));if(fo)render()};
    ul.appendChild(li)});
@@ -263,7 +263,7 @@ render();
 fetch("protocols.json",{cache:"no-cache"}).then(r=>r.ok?r.json():null).then(j=>{
  if(!j||!Array.isArray(j.protocols)||j.protocols.length<20)return;
  DATA=build(j.protocols.map(p=>({id:String(p.id),k:p.cat,t:p.title,off:p.off,url:p.url})));
- if(j.checked){const d=new Date(j.checked+"T12:00:00");$("#checked").textContent="Lista comprobada con eviQ el "+d.toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"})+". Se actualiza automáticamente cada día.";}
+ if(j.checked){const d=new Date(j.checked+"T12:00:00");const t=new Date();t.setUTCHours(4,17,0,0);const lt=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});$("#checked").textContent="List checked against eviQ on "+d.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})+". It is updated automatically every day at 04:17 UTC ("+lt+" your local time). Use “View section on eviQ” for the complete, current list for each tumour site.";}
  render();
 }).catch(()=>{});
 </script>
